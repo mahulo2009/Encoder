@@ -1,8 +1,5 @@
-DCMotor	KEYWORD1
-setupDirection	KEYWORD2
-power	KEYWORD2
-stop KEYWORD2
+Encoder	KEYWORD1
 
-FORWARD       LITERAL1
-BACKWARD      LITERAL1
-
+attach	KEYWORD2
+handler	KEYWORD2
+getTicks KEYWORD2
