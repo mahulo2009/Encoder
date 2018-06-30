@@ -15,14 +15,15 @@ void(*handler_function[MAX_ENCODER])()={handle_interrupt_1,handle_interrupt_2};
 Encoder *Encoder::instance_[MAX_ENCODER];
 int Encoder::encoder_index_=0;
 
-Encoder::Encoder()
+Encoder::Encoder(int ticks_per_revolution) : ticks_(0), previous_ticks_(0)
 {
+	angle_per_tic_ = TWO_PI /  ticks_per_revolution;
 }
 
 void Encoder::handler(int index)
 {
 	instance_[index]->ticks_++;	
-	#ifdef MOTOR_ENCODER_DEBUG
+	#ifdef ENCODER_DEBUG
 	Serial.print("Encoder::handler:");
   Serial.print("\t");
 	Serial.print(index);
@@ -43,3 +44,22 @@ void Encoder::attach(int pin)
 		encoder_index_++;
 	}
 }
+
+float Encoder::getVelocity(float dt)
+{
+	#ifdef ENCODER_DEBUG
+	Serial.print("Encoder::getVelocity:");
+  Serial.print("\t");
+	Serial.print(ticks_);
+  Serial.print("\t");
+	Serial.print(previous_ticks_);
+  Serial.print("\t");
+	Serial.print(dt);
+  Serial.print("\n");
+	#endif
+
+  float velocity  = (angle_per_tic_ * (ticks_ - previous_ticks_))/dt;
+  previous_ticks_ = ticks_;
+	return velocity;
+}
+
