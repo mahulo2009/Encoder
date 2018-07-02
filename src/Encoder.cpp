@@ -7,17 +7,17 @@ void handle_interrupt_1()
 
 void handle_interrupt_2()
 {
-	Encoder::instance_[0]->handler(1);
+	Encoder::instance_[1]->handler(1);
 }
 
 void handle_interrupt_3()
 {
-	Encoder::instance_[0]->handler(2);
+	Encoder::instance_[2]->handler(2);
 }
 
 void handle_interrupt_4()
 {
-	Encoder::instance_[0]->handler(3);
+	Encoder::instance_[3]->handler(3);
 }
 
 void(*handler_function[MAX_ENCODER])()={handle_interrupt_1,
@@ -28,14 +28,14 @@ void(*handler_function[MAX_ENCODER])()={handle_interrupt_1,
 Encoder *Encoder::instance_[MAX_ENCODER];
 int Encoder::encoder_index_=0;
 
-Encoder::Encoder(int ticks_per_revolution) : ticks_(0), previous_ticks_(0)
+Encoder::Encoder(int ticks_per_revolution) : ticks_(0), previous_ticks_(0),direction_(0)
 {
 	angle_per_tic_ = TWO_PI /  ticks_per_revolution;
 }
 
 void Encoder::handler(int index)
 {
-	instance_[index]->ticks_++;	
+	instance_[index]->ticks_ +=  instance_[index]->direction_;
 	#ifdef ENCODER_DEBUG
 	Serial.print("Encoder::handler:");
 	Serial.print("\t");
