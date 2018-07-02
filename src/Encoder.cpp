@@ -10,6 +10,17 @@ void handle_interrupt_2()
 	Encoder::instance_[0]->handler(1);
 }
 
+void handle_interrupt_3()
+{
+	Encoder::instance_[0]->handler(2);
+}
+
+void handle_interrupt_4()
+{
+	Encoder::instance_[0]->handler(3);
+}
+
+
 void(*handler_function[MAX_ENCODER])()={handle_interrupt_1,handle_interrupt_2};
 
 Encoder *Encoder::instance_[MAX_ENCODER];
