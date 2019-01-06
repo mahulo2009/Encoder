@@ -58,7 +58,7 @@ void Encoder::attach(int pin)
 	}
 }
 
-float Encoder::getVelocity(float dt)
+double Encoder::getVelocity(double dt)
 {
 	#ifdef ENCODER_DEBUG
 	Serial.print("Encoder::getVelocity:");
@@ -71,7 +71,7 @@ float Encoder::getVelocity(float dt)
 	Serial.print("\n");
 	#endif
 
-	float velocity  = (angle_per_tic_ * (ticks_ - previous_ticks_))/dt;
+	double velocity  = (angle_per_tic_ * (ticks_ - previous_ticks_))/dt;
 	previous_ticks_ = ticks_;
 	return velocity;
 }

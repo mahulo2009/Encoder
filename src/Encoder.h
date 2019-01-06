@@ -20,7 +20,7 @@ class Encoder : public EncoderBase {
 	virtual void setupDirection(int direction)			//encoder direction positive fordware negative backware
 		{ this->direction_=direction;};				
 
-	virtual float getVelocity(float dt);				//velocity [radians per second]
+	virtual double getVelocity(double dt);				//velocity [radians per second]
 
 	void attach(int pin);						//attach the encoder interrupt pin
 	void handler(int index);  					//handle the interruption
@@ -30,7 +30,7 @@ class Encoder : public EncoderBase {
   	int pin_;									//interrupt pin
   	long ticks_;								//total number of ticks
 	long previous_ticks_;						//store previous ticks since getVelocity was called 
-	float angle_per_tic_;						//factor to convert from ticks to angle.
+	double angle_per_tic_;						//factor to convert from ticks to angle.
 	int direction_;								//encoder direction positive fordware negative backware	
 };
 #endif
