@@ -3,7 +3,7 @@
 
 
 #include "Arduino.h"
-#include "EncoderBase.h"
+#include <EncoderBase.h>
 
 //#define ENCODER_DEBUG 1
 
